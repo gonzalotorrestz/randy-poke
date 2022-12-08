@@ -74,7 +74,7 @@ export default function Form() {
         setPokemon(randy)
     }
 
-    if (type1Options.length < 2 || type2Options.length < 2 || genOptions === "") {
+    if (type1Options.length < 2 || type2Options.length < 2 || genOptions.length < 2) {
         return <div className='flex flex-col justify-center items-center'>Loading...</div>;
     }
     return (
