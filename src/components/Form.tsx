@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { AppService } from '../services/app.services';
-import { pokemonType } from '../utils/types';
+import { pokemonType, genType } from '../utils/types';
 import FormFilter from './FormFilter';
 import Pokemon from './Pokemon';
 
@@ -8,11 +8,13 @@ export default function Form() {
     const randy = { name: 'Randy', type1: 'Psychic', type2: '', gen: "??" }
     const [pokemon, setPokemon] = useState(randy);
 
-    let initTy: pokemonType[] = [{ id: "0", label: 'Any'}];
-    const [type1Options, setType1Options] = useState(initTy);
-    const [type2Options, setType2Options] = useState(initTy);
+    let initTypes: pokemonType[] = [{ id: "0", label: 'Any' }];
+    let initGens: genType[] = [{ id: "0", label: 'Any' }];
 
-    const [genOptions, setGenOptions] = useState();
+    const [type1Options, setType1Options] = useState(initTypes);
+    const [type2Options, setType2Options] = useState(initTypes);
+
+    const [genOptions, setGenOptions] = useState(initGens);
 
     const [type1, setType1] = useState("");
     const [type2, setType2] = useState("");
@@ -34,7 +36,7 @@ export default function Form() {
                 setType2Options(response)
             })
         appService.getAllGens()
-            .then((response) =>
+            .then((response: genType[]) =>
                 setGenOptions(response))
     }, [])
 
@@ -72,7 +74,7 @@ export default function Form() {
         setPokemon(randy)
     }
 
-    if (type1Options.length === 0 || type2Options.length === 0 || genOptions === "") {
+    if (type1Options.length < 2 || type2Options.length < 2 || genOptions === "") {
         return <div className='flex flex-col justify-center items-center'>Loading...</div>;
     }
     return (
