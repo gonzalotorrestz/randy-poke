@@ -16,7 +16,7 @@ export default function Type({ type }: { type: string }) {
             </p>
             <span className='flex w-4 ml-2 '>
                 <img
-                    src={`/assets/type_icons/${type}.svg`}
+                    src={`/assets/type_icons/${type.toLowerCase()}.svg`}
                     alt="Type Icon"
                 />
             </span>
